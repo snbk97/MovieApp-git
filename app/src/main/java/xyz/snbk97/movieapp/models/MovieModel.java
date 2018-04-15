@@ -2,7 +2,7 @@ package xyz.snbk97.movieapp.models;
 /**
  * Created by sayan on 15-04-2018.
  */
-public class mMovieModel {
+public class MovieModel {
     //    TMBD model
     private String posterPath;
     private String title;
@@ -11,7 +11,7 @@ public class mMovieModel {
 
 
 
-    public mMovieModel(String title, String overview, String releaseDate, String posterPath) {
+    public MovieModel(String title, String overview, String releaseDate, String posterPath) {
         this.title = title;
         this.overview = overview;
         this.releaseDate = releaseDate;

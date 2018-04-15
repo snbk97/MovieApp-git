@@ -2,14 +2,10 @@ package xyz.snbk97.movieapp;
 
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,10 +23,10 @@ import java.util.List;
 
 import xyz.snbk97.movieapp.adapter.MovieAdapter;
 import xyz.snbk97.movieapp.dataProvider.SingletonRequestQueue;
-import xyz.snbk97.movieapp.models.mMovieModel;
+import xyz.snbk97.movieapp.models.MovieModel;
 
 public class MainActivity extends AppCompatActivity {
-    private List<mMovieModel> MovieListItems;
+    private List<MovieModel> MovieListItems;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
@@ -76,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONArray mJsonArray = response.getJSONArray("results");
                             for (int i = 0; i < mJsonArray.length(); i++) {
                                 JSONObject o = mJsonArray.getJSONObject(i);
-                                mMovieModel mMovie = new mMovieModel(
+                                MovieModel mMovie = new MovieModel(
                                         o.getString("title"),
                                         o.getString("overview"),
                                         o.getString("release_date"),

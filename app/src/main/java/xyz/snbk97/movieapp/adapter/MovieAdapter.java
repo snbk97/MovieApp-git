@@ -16,16 +16,16 @@ import java.util.List;
 
 import xyz.snbk97.movieapp.DetailActivity;
 import xyz.snbk97.movieapp.R;
-import xyz.snbk97.movieapp.models.mMovieModel;
+import xyz.snbk97.movieapp.models.MovieModel;
 
 /**
  * Created by sayan on 15-04-2018.
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
-    List<mMovieModel> movieListItems;
+    List<MovieModel> movieListItems;
     Context context;
 
-    public MovieAdapter(List<mMovieModel> movieListItems, Context context) {
+    public MovieAdapter(List<MovieModel> movieListItems, Context context) {
         this.movieListItems = movieListItems;
         this.context = context;
     }
@@ -38,7 +38,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-        mMovieModel mCurrentMovie = movieListItems.get(position);
+        MovieModel mCurrentMovie = movieListItems.get(position);
         String mTitle, mOverview, mReleaseDate, mImg;
         mTitle = mCurrentMovie.getTitle();
         mOverview = mCurrentMovie.getOverview();
