@@ -17,10 +17,6 @@ import xyz.snbk97.movieapp.DetailActivity;
 import xyz.snbk97.movieapp.R;
 import xyz.snbk97.movieapp.models.MovieModel;
 
-
-/**
- * Created by sayan on 15-04-2018.
- */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     List<MovieModel> movieListItems;
     Context context;
