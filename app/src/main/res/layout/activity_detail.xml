@@ -81,7 +81,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="4dp">
 
                     <TextView
                         android:id="@+id/placeholder_language"
@@ -117,7 +118,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="4dp">
 
                     <TextView
                         android:id="@+id/placeholder_releasedate"
@@ -153,7 +155,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="4dp">
 
                     <TextView
                         android:id="@+id/placeholder_overview"
