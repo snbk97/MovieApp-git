@@ -1,6 +1,8 @@
 package xyz.snbk97.movieapp;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -24,6 +26,7 @@ import xyz.snbk97.movieapp.dataProvider.SingletonRequestQueue;
 import xyz.snbk97.movieapp.models.MovieModel;
 
 public class DetailActivity extends AppCompatActivity {
+    Button d_trailer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +36,21 @@ public class DetailActivity extends AppCompatActivity {
         Bundle data = getIntent().getExtras();
         MovieModel currentMovie = data.getParcelable("Movie");
 
+        Button detail_back = (Button) findViewById(R.id.detail_back);
+        detail_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
         TextView d_title = (TextView) findViewById(R.id.detail_title);
         TextView d_lang = (TextView) findViewById(R.id.detail_language);
         TextView d_overview = (TextView) findViewById(R.id.detail_overview);
         TextView d_date = (TextView) findViewById(R.id.detail_releasedate);
         ImageView d_img = (ImageView) findViewById(R.id.detail_img);
-        Button d_trailer = (Button) findViewById(R.id.detail_trailer);
+        d_trailer = (Button) findViewById(R.id.detail_trailer);
 
         Glide.with(this)
                 .load(currentMovie.getBackdropPath())
@@ -51,11 +62,11 @@ public class DetailActivity extends AppCompatActivity {
         d_overview.setText(currentMovie.getOverview());
         d_date.setText(currentMovie.getReleaseDate());
 
-        fetchTrailer(d_trailer, Integer.parseInt(currentMovie.getId()));
+        fetchTrailer(Integer.parseInt(currentMovie.getId()));
 
     }
 
-    public void fetchTrailer(final Button b, int movieId) {
+    public void fetchTrailer(int movieId) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading data ...");
         progressDialog.show();
@@ -72,10 +83,14 @@ public class DetailActivity extends AppCompatActivity {
                             JSONArray mJsonArray = response.getJSONArray("results");
                             JSONObject mJsonObject = mJsonArray.getJSONObject(0);
                             final String yt_key = mJsonObject.getString("key");
-                            b.setOnClickListener(new View.OnClickListener() {
+                            final String yt_url = "https://www.youtube.com/watch?v=" + yt_key;
+
+                            d_trailer.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(v.getContext(), yt_key, Toast.LENGTH_SHORT).show();
+                                    Intent openTrailer = new Intent(Intent.ACTION_VIEW);
+                                    openTrailer.setData(Uri.parse(yt_url));
+                                    startActivity(openTrailer);
                                 }
                             });
                         } catch (JSONException e) {
