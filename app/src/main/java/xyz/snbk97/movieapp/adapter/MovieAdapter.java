@@ -1,7 +1,6 @@
 package xyz.snbk97.movieapp.adapter;
 
 import android.content.Context;
-
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import java.util.List;
 import xyz.snbk97.movieapp.DetailActivity;
 import xyz.snbk97.movieapp.R;
 import xyz.snbk97.movieapp.models.MovieModel;
+
 
 /**
  * Created by sayan on 15-04-2018.
@@ -39,12 +39,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
         MovieModel mCurrentMovie = movieListItems.get(position);
-        String mTitle, mOverview, mReleaseDate, mImg;
+        String mTitle, mReleaseDate, mImg;
         mTitle = mCurrentMovie.getTitle();
-        mOverview = mCurrentMovie.getOverview();
         mReleaseDate = mCurrentMovie.getReleaseDate();
         mImg = mCurrentMovie.getPosterPath();
 
+        holder.mposition.setText(String.valueOf(position));
         holder.mTitle.setText(mTitle);
         holder.mReleaseDate.setText(mReleaseDate);
         Glide.with(context)
@@ -62,19 +62,22 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageView mImg;
         TextView mTitle;
         TextView mReleaseDate;
-//        TextView mOverview;
+        TextView mposition;
+
         public MovieViewHolder(final View itemView) {
             super(itemView);
             mImg = (ImageView) itemView.findViewById(R.id.mImg);
             mTitle = (TextView) itemView.findViewById(R.id.mTitle);
             mReleaseDate = (TextView) itemView.findViewById(R.id.mReleaseDate);
-//            mOverview = (TextView) itemView.findViewById(R.id.mOverview);
+            mposition = (TextView) itemView.findViewById(R.id.mPosition);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, DetailActivity.class);
-                    context.startActivity(i);
+                    MovieModel mIntentToDetail = movieListItems.get(Integer.valueOf(mposition.getText().toString()));
+                    Intent k = new Intent(context, DetailActivity.class);
+                    k.putExtra("Movie", mIntentToDetail);
+                    context.startActivity(k);
                 }
             });
 

@@ -2,8 +2,8 @@ package xyz.snbk97.movieapp;
 
 import android.app.ProgressDialog;
 import android.content.res.Configuration;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = (RecyclerView) findViewById(R.id.MovieList);
-
         GridLayoutManager GLM = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(GLM);
         MovieListItems = new ArrayList<>();
@@ -45,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             GridLayoutManager GLM = new GridLayoutManager(this, 4);
             recyclerView.setLayoutManager(GLM);
-        }else{
+        } else {
             GridLayoutManager GLM = new GridLayoutManager(this, 2);
             recyclerView.setLayoutManager(GLM);
         }
@@ -60,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         pDialog.show();
 
         String TMDB_KEY = BuildConfig.TMBD_KEY;
-        String baseUrl = "http://api.themoviedb.org/3/discover/movie?";
-        String finalUrl = baseUrl + "&api_key=" + TMDB_KEY + "&primary_release_date.lte=2018-01-01";
+        String baseUrl = "http://api.themoviedb.org/3/discover/movie?"; // TODO: 16-04-2018 Use UrlBuilder Class instead
+        String finalUrl = baseUrl + "&api_key=" + TMDB_KEY + "&primary_release_date.lte=2017-01-01";
         final String imageUrl = "https://image.tmdb.org/t/p/w780";
 
         JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.GET, finalUrl, null,
@@ -71,19 +70,22 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             JSONArray mJsonArray = response.getJSONArray("results");
                             for (int i = 0; i < mJsonArray.length(); i++) {
-                                JSONObject o = mJsonArray.getJSONObject(i);
+                                JSONObject mJsonObject = mJsonArray.getJSONObject(i);
                                 MovieModel mMovie = new MovieModel(
-                                        o.getString("title"),
-                                        o.getString("overview"),
-                                        o.getString("release_date"),
-                                        imageUrl + o.getString("poster_path")
+                                        mJsonObject.getString("id"),
+                                        mJsonObject.getString("title"),
+                                        mJsonObject.getString("overview"),
+                                        mJsonObject.getString("original_language"),
+                                        mJsonObject.getString("release_date"),
+                                        imageUrl + mJsonObject.getString("backdrop_path"),
+                                        imageUrl + mJsonObject.getString("poster_path")
                                 );
                                 MovieListItems.add(mMovie);
                             }
-                            pDialog.dismiss();
+
                             adapter = new MovieAdapter(MovieListItems, getApplicationContext());
                             recyclerView.setAdapter(adapter);
-
+                            pDialog.dismiss();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
