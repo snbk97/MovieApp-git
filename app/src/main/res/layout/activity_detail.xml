@@ -11,22 +11,36 @@
         <ImageView
             android:id="@+id/detail_img"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="248dp"
             android:background="@color/colorPrimaryDark"
             android:cropToPadding="false"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:tint="#5e121414" />
 
         <Button
             android:id="@+id/detail_trailer"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right|top"
             android:layout_marginRight="5dp"
-            android:background="#abd92729"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/trailer_btn"
+            android:paddingEnd="15dp"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
-            android:text="Watch\nTrailer"
             android:textColor="@color/cardview_light_background" />
+
+        <Button
+            android:id="@+id/detail_back"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:layout_marginRight="5dp"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/back_btn"
+            android:paddingEnd="15dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp" />
 
         <TextView
             android:id="@+id/detail_title"
@@ -41,8 +55,6 @@
             android:text="Test"
             android:textColor="@color/cardview_light_background"
             android:textSize="35sp" />
-
-
     </FrameLayout>
 
 
